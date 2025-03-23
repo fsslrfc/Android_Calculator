@@ -12,6 +12,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /*
  * 注意事项：
  * 正负号可以点击交换，默认为正，按下为负（有按下和抬起的动画区别）（不存在多正负号的输入）（初始化时默认为正号）
@@ -42,8 +49,10 @@ public class FirstActivity extends AppCompatActivity {
     StringBuilder ans1;
     StringBuilder ans2;
 
+    //借助ViewModel实现生命周期内的数据持久化
     MainViewModel MVM = new MainViewModel();
 
+    //定义ViewModel类
     public class MainViewModel extends ViewModel {
         boolean is_first_num_o;
         boolean is_add_o;
@@ -53,6 +62,7 @@ public class FirstActivity extends AppCompatActivity {
         StringBuilder ans1_o;
         StringBuilder ans2_o;
 
+        //实现数据保存函数
         public void saveViewModel() {
             this.is_first_num_o = is_first_num;
             this.is_add_o = is_add;
@@ -64,6 +74,7 @@ public class FirstActivity extends AppCompatActivity {
         }
     }
 
+    //实现数据回写函数
     public void reloadViewModel(MainViewModel mainViewModel) {
         is_first_num = mainViewModel.is_first_num_o;
         is_add = mainViewModel.is_add_o;
@@ -74,6 +85,7 @@ public class FirstActivity extends AppCompatActivity {
         ans2 = mainViewModel.ans2_o;
         Log.d(TAG, "num1 == " + ans1.toString());
         Log.d(TAG, "num2 == " + ans2.toString());
+
     }
 
     @Override
@@ -88,7 +100,7 @@ public class FirstActivity extends AppCompatActivity {
         updateResult();
     }
 
-    public boolean init() {
+    public void init() {
         num1TextView = findViewById(R.id.viewNum1);
         num2TextView = findViewById(R.id.viewNum2);
         addTextView = findViewById(R.id.viewAdd);
@@ -117,12 +129,17 @@ public class FirstActivity extends AppCompatActivity {
         mulTextView.setTextColor(0x22000000);
         divTextView.setTextColor(0x22000000);
 
+        checkHistory();
+
+        String path = this.getFilesDir().toString();
+        Log.d(TAG, "path == " + path);
+
         updateResult();
 
-        return true;
+        return;
     }
 
-
+    //重写横竖屏切换时的调用函数
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -208,6 +225,109 @@ public class FirstActivity extends AppCompatActivity {
         Log.d(TAG, "num1 == " + ans1.toString());
         Log.d(TAG, "num2 == " + ans2.toString());
     }
+
+    public void checkHistory() {
+        File file = new File(getFilesDir(), "history.txt");
+
+        try {
+            if (!file.exists()) {
+                FileWriter writer = new FileWriter(file);
+                writer.write("count:0\n");
+                writer.flush();
+                writer.close();
+            }
+            else {
+                FileReader reader = new FileReader(file);
+                BufferedReader br = new BufferedReader(reader);
+                String str = br.readLine().substring(0, 6);
+                Log.d(TAG, "记录错误：当前读取到的str是" + str);
+                if (!str.equals("count:")) {
+                    Toast.makeText(this, "历史记录错误，已重置历史记录！", Toast.LENGTH_LONG).show();
+                    reader.close();
+                    file.delete();
+
+                    FileWriter writer = new FileWriter(file);
+                    writer.write("count:0\n");
+                    writer.flush();
+                    writer.close();
+                }
+                reader.close();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void upload1History() {
+        Log.d(TAG, "错误记录：upload1已开始");
+        File temp = new File(getFilesDir(), "history.txt");
+
+        checkHistory();
+
+        int count;
+        try {
+            FileWriter writer = new FileWriter(temp, true);
+
+            writer.write(ans1.toString());
+            if (is_add) {
+                writer.write("+");
+            }
+            else if (is_sub) {
+                writer.write("-");
+            }
+            else if (is_mul) {
+                writer.write("*");
+            }
+            else if (is_div) {
+                writer.write("/");
+            }
+            writer.write(ans2.toString());
+
+            writer.flush();
+            writer.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void upload2History() {
+        Log.d(TAG, "错误记录：upload2已开始");
+        File file = new File(getFilesDir(), "history.txt");
+
+        checkHistory();
+
+        int count;
+        String line;
+        String res;
+        try {
+            FileReader reader = new FileReader(file);
+            BufferedReader br = new BufferedReader(reader);
+            line = br.readLine().substring(6);
+            count = Integer.parseInt(line) + 1;
+            Log.d(TAG, "记录错误：当前count的值为" + count);
+
+            File temp = new File(getFilesDir(), "temp.txt");
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter(temp, false));
+            bw.write("count:" + count);
+            while ((line = br.readLine()) != null) {
+                bw.write("\n" + line);
+            }
+            bw.write("=" + ans1.toString() + "\n");
+            bw.flush();
+            bw.close();
+            br.close();
+            reader.close();
+            file.delete();
+            temp.renameTo(file);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void onClickZero(View view) {
         if (is_first_num) {
@@ -417,6 +537,7 @@ public class FirstActivity extends AppCompatActivity {
             return;
         }
         else {
+            upload1History();
             if (is_add) {
                 BigNum num1 = new BigNum(ans1.toString());
                 BigNum num2 = new BigNum(ans2.toString());
@@ -445,6 +566,7 @@ public class FirstActivity extends AppCompatActivity {
                 ans1 = new StringBuilder(num1.get());
                 is_div = false;
             }
+            upload2History();
             updateResult();
             ans2 = new StringBuilder("+");
         }
