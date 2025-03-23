@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/viewAdd"
+                style="@style/CalculatorScreenSymbolStyle_land"
+                android:layout_weight="1"
+                android:text="+" />
+
+            <TextView
+                android:id="@+id/viewSub"
+                style="@style/CalculatorScreenSymbolStyle_land"
+                android:layout_weight="1"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/viewMul"
+                style="@style/CalculatorScreenSymbolStyle_land"
+                android:layout_weight="1"
+                android:text="×" />
+
+            <TextView
+                android:id="@+id/viewDiv"
+                style="@style/CalculatorScreenSymbolStyle_land"
+                android:layout_weight="1"
+                android:text="÷" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Symbol1"
+                    style="@style/CalculatorScreenSymbolStyle"
+                    android:layout_weight="1"
+                    android:text="+"/>
+
+                <TextView
+                    android:id="@+id/Symbol2"
+                    style="@style/CalculatorScreenSymbolStyle"
+                    android:layout_weight="1"
+                    android:text="+"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:orientation="vertical">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scrollbars="none">
+
+                    <TextView
+                        android:id="@+id/viewNum1"
+                        style="@style/CalculatorScreenResultStyle"
+                        android:text="0" />
+
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scrollbars="none">
+
+                    <TextView
+                        android:id="@+id/viewNum2"
+                        style="@style/CalculatorScreenResultStyle"
+                        android:text="0" />
+
+                </HorizontalScrollView>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            style="@style/CalculatorButtonStyle_symbol_land"
+            android:onClick="onClickMul"
+            android:text="×" />
+
+        <Button
+            style="@style/CalculatorButtonStyle_symbol_land"
+            android:onClick="onClickDiv"
+            android:text="÷" />
+
+        <Button
+            style="@style/CalculatorButtonStyle_symbol_land"
+            android:onClick="onClickDel"
+            android:text="←" />
+
+        <Button
+            style="@style/CalculatorButtonStyle_symbol_land"
+            android:onClick="onClickClr"
+            android:text="C" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            style="@style/CalculatorButtonStyle_symbol_land"
+            android:onClick="onClickSub"
+            android:text="-" />
+        <Button
+            style="@style/CalculatorButtonStyle_number_land"
+            android:onClick="onClickSeven"
+            android:text="7" />
+        <Button
+            style="@style/CalculatorButtonStyle_number_land"
+            android:onClick="onClickFour"
+            android:text="4" />
+        <Button
+            style="@style/CalculatorButtonStyle_number_land"
+            android:onClick="onClickOne"
+            android:text="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            style="@style/CalculatorButtonStyle_symbol_land"
+            android:onClick="onClickAdd"
+            android:text="+" />
+
+        <Button
+            style="@style/CalculatorButtonStyle_number_land"
+            android:onClick="onClickEight"
+            android:text="8" />
+
+        <Button
+            style="@style/CalculatorButtonStyle_number_land"
+            android:onClick="onClickFive"
+            android:text="5" />
+        <Button
+            style="@style/CalculatorButtonStyle_number_land"
+            android:onClick="onClickTwo"
+            android:text="2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <!--这里为了实现左:右=3:1，使用的是两块父类空间13分配        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                style="@style/CalculatorButtonStyle_equal_land"
+                android:onClick="onClickEqu"
+                android:text="=" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    style="@style/CalculatorButtonStyle_number_land"
+                    android:onClick="onClickNine"
+                    android:text="9" />
+
+                <Button
+                    style="@style/CalculatorButtonStyle_number_land"
+                    android:onClick="onClickSix"
+                    android:text="6" />
+
+
+                <Button
+                    style="@style/CalculatorButtonStyle_number_land"
+                    android:onClick="onClickThree"
+                    android:text="3" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    style="@style/CalculatorButtonStyle_number_land"
+                    android:layout_weight="1"
+                    android:onClick="onClickSymbol"
+                    android:text="+/-" />
+
+                <Button
+                    android:id="@+id/buttonPoint"
+                    style="@style/CalculatorButtonStyle_number_land"
+                    android:layout_weight="1"
+                    android:onClick="onClickPoint"
+                    android:text="." />
+
+                <Button
+                    style="@style/CalculatorButtonStyle_number_land"
+                    android:layout_weight="1"
+                    android:onClick="onClickZero"
+                    android:text="0" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
