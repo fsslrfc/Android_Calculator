@@ -43,6 +43,12 @@
                 android:layout_weight="1"
                 android:text="÷" />
 
+            <ImageView
+                android:id="@+id/viewHistory"
+                style="@style/CalculatorScreenSymbolStyle_land"
+                android:layout_weight="1"
+                android:src="@drawable/clock_22000000" />
+
         </LinearLayout>
 
         <LinearLayout

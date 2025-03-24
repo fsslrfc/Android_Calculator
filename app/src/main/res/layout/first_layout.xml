@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <LinearLayout
-        android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_marginEnd="20dp"
+        android:layout_weight="3"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/Symbol1"
                 style="@style/CalculatorScreenSymbolStyle"
                 android:layout_weight="1"
-                android:text="+"/>
+                android:text="+" />
+
 
             <TextView
                 android:id="@+id/Symbol2"
                 style="@style/CalculatorScreenSymbolStyle"
                 android:layout_weight="1"
-                android:text="+"/>
+                android:text="+" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:layout_weight="7"
-            android:orientation="vertical"
-            android:layout_gravity="end">
+            android:orientation="vertical">
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -62,8 +63,8 @@
 
                 <TextView
                     android:id="@+id/viewNum2"
-                    android:layout_weight="1"
                     style="@style/CalculatorScreenResultStyle"
+                    android:layout_weight="1"
                     android:text="0" />
 
             </HorizontalScrollView>
@@ -71,195 +72,207 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/viewAdd"
                 style="@style/CalculatorScreenSymbolStyle"
                 android:layout_weight="1"
-                android:text="+"/>
+                android:text="+" />
 
             <TextView
                 android:id="@+id/viewSub"
                 style="@style/CalculatorScreenSymbolStyle"
                 android:layout_weight="1"
-                android:text="-"/>
+                android:text="-" />
 
             <TextView
                 android:id="@+id/viewMul"
                 style="@style/CalculatorScreenSymbolStyle"
                 android:layout_weight="1"
-                android:text="×"/>
+                android:text="×" />
 
             <TextView
                 android:id="@+id/viewDiv"
                 style="@style/CalculatorScreenSymbolStyle"
                 android:layout_weight="1"
-                android:text="÷"/>
+                android:text="÷" />
+
+            <ImageView
+                android:id="@+id/viewHistory"
+                style="@style/CalculatorScreenSymbolStyle"
+                android:layout_weight="1"
+                android:src="@drawable/clock_22000000" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <Button
             style="@style/CalculatorButtonStyle_symbol"
             android:onClick="onClickClr"
-            android:text="C"/>
+            android:text="C" />
+
         <Button
             style="@style/CalculatorButtonStyle_symbol"
             android:onClick="onClickDel"
-            android:text="←"/>
+            android:text="←" />
+
         <Button
             style="@style/CalculatorButtonStyle_symbol"
             android:onClick="onClickDiv"
-            android:text="÷"/>
+            android:text="÷" />
+
         <Button
             style="@style/CalculatorButtonStyle_symbol"
             android:onClick="onClickMul"
-            android:text="×"/>
+            android:text="×" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <Button
             style="@style/CalculatorButtonStyle_number"
             android:onClick="onClickSeven"
-            android:text="7"/>
+            android:text="7" />
 
         <Button
             style="@style/CalculatorButtonStyle_number"
             android:onClick="onClickEight"
-            android:text="8"/>
+            android:text="8" />
+
         <Button
             style="@style/CalculatorButtonStyle_number"
             android:onClick="onClickNine"
-            android:text="9"/>
+            android:text="9" />
+
         <Button
             style="@style/CalculatorButtonStyle_symbol"
             android:onClick="onClickSub"
-            android:text="-"/>
+            android:text="-" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <Button
             style="@style/CalculatorButtonStyle_number"
             android:onClick="onClickFour"
-            android:text="4"/>
+            android:text="4" />
+
         <Button
             style="@style/CalculatorButtonStyle_number"
             android:onClick="onClickFive"
-            android:text="5"/>
+            android:text="5" />
+
         <Button
             style="@style/CalculatorButtonStyle_number"
             android:onClick="onClickSix"
-            android:text="6"/>
+            android:text="6" />
+
         <Button
             style="@style/CalculatorButtonStyle_symbol"
             android:onClick="onClickAdd"
-            android:text="+"/>
+            android:text="+" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="2"
         android:orientation="horizontal">
 
-<!--这里为了实现左:右=3:1，使用的是两块父类空间13分配        -->
+        <!--这里为了实现左:右=3:1，使用的是两块父类空间13分配        -->
         <LinearLayout
-            android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <Button
                     style="@style/CalculatorButtonStyle_number"
                     android:onClick="onClickOne"
-                    android:text="1"/>
+                    android:text="1" />
 
                 <Button
                     style="@style/CalculatorButtonStyle_number"
                     android:onClick="onClickTwo"
-                    android:text="2"/>
+                    android:text="2" />
 
                 <Button
                     style="@style/CalculatorButtonStyle_number"
                     android:onClick="onClickThree"
-                    android:text="3"/>
+                    android:text="3" />
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
-                    android:layout_weight="1"
                     style="@style/CalculatorButtonStyle_number"
+                    android:layout_weight="1"
                     android:onClick="onClickZero"
-                    android:text="0"/>
+                    android:text="0" />
 
                 <Button
                     android:id="@+id/buttonPoint"
-                    android:layout_weight="1"
                     style="@style/CalculatorButtonStyle_number"
+                    android:layout_weight="1"
                     android:onClick="onClickPoint"
-                    android:text="."/>
+                    android:text="." />
 
                 <Button
-                    android:layout_weight="1"
                     style="@style/CalculatorButtonStyle_number"
+                    android:layout_weight="1"
                     android:onClick="onClickSymbol"
-                    android:text="+/-"/>
+                    android:text="+/-" />
 
             </LinearLayout>
-            
+
         </LinearLayout>
-        
+
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <Button
                 style="@style/CalculatorButtonStyle_equal"
                 android:onClick="onClickEqu"
-                android:text="="/>
-
-
+                android:text="=" />
 
 
         </LinearLayout>
-        
+
     </LinearLayout>
 
 </LinearLayout>

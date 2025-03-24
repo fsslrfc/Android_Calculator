@@ -11,6 +11,7 @@ public class BigNum {
      * 判断整数/小数：XS.length()=0整数，XS.length()>0小数（每一次运算结束后需要判断整数部分/小数部分是否为0，如果是则制空）
      *
      */
+
     //静态函数：数据预处理
     public static String prefix(String input) {
         StringBuilder res = new StringBuilder("");

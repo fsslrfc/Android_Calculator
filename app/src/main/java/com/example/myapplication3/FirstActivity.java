@@ -1,11 +1,13 @@
 package com.example.myapplication3;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class FirstActivity extends AppCompatActivity {
     private TextView num1SymbolView;
     private TextView num2SymbolView;
     private Button pointButton;
+    private ImageView historyView;
 
     boolean is_first_num;
     boolean is_add;
@@ -110,6 +113,15 @@ public class FirstActivity extends AppCompatActivity {
         num1SymbolView = findViewById(R.id.Symbol1);
         num2SymbolView = findViewById(R.id.Symbol2);
         pointButton = findViewById(R.id.buttonPoint);
+        historyView = findViewById(R.id.viewHistory);
+
+        historyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ans1 = new StringBuilder("+");
         ans2 = new StringBuilder("+");
@@ -118,7 +130,6 @@ public class FirstActivity extends AppCompatActivity {
         is_sub = false;
         is_mul = false;
         is_div = false;
-        pointButton.setPressed(false);
 
         num1TextView.setTextColor(0xFF5985EB);
         num2TextView.setTextColor(0x22000000);
@@ -226,13 +237,14 @@ public class FirstActivity extends AppCompatActivity {
         Log.d(TAG, "num2 == " + ans2.toString());
     }
 
+    //检查历史记录函数
     public void checkHistory() {
         File file = new File(getFilesDir(), "history.txt");
 
         try {
             if (!file.exists()) {
                 FileWriter writer = new FileWriter(file);
-                writer.write("count:0\n");
+                writer.write("count:0");
                 writer.flush();
                 writer.close();
             }
@@ -247,7 +259,7 @@ public class FirstActivity extends AppCompatActivity {
                     file.delete();
 
                     FileWriter writer = new FileWriter(file);
-                    writer.write("count:0\n");
+                    writer.write("count:0");
                     writer.flush();
                     writer.close();
                 }
@@ -259,6 +271,7 @@ public class FirstActivity extends AppCompatActivity {
         }
     }
 
+    //计算前向历史记录中存入计算前的数据
     public void upload1History() {
         Log.d(TAG, "错误记录：upload1已开始");
         File temp = new File(getFilesDir(), "history.txt");
@@ -269,18 +282,19 @@ public class FirstActivity extends AppCompatActivity {
         try {
             FileWriter writer = new FileWriter(temp, true);
 
+            writer.write("\n");
             writer.write(ans1.toString());
             if (is_add) {
-                writer.write("+");
+                writer.write(" + ");
             }
             else if (is_sub) {
-                writer.write("-");
+                writer.write(" - ");
             }
             else if (is_mul) {
-                writer.write("*");
+                writer.write(" * ");
             }
             else if (is_div) {
-                writer.write("/");
+                writer.write(" / ");
             }
             writer.write(ans2.toString());
 
@@ -292,6 +306,7 @@ public class FirstActivity extends AppCompatActivity {
         }
     }
 
+    //计算后向历史记录中存入计算后的结果
     public void upload2History() {
         Log.d(TAG, "错误记录：upload2已开始");
         File file = new File(getFilesDir(), "history.txt");
@@ -315,7 +330,7 @@ public class FirstActivity extends AppCompatActivity {
             while ((line = br.readLine()) != null) {
                 bw.write("\n" + line);
             }
-            bw.write("=" + ans1.toString() + "\n");
+            bw.write(" = " + ans1.toString());
             bw.flush();
             bw.close();
             br.close();
@@ -327,7 +342,6 @@ public class FirstActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
     public void onClickZero(View view) {
         if (is_first_num) {
@@ -607,6 +621,5 @@ public class FirstActivity extends AppCompatActivity {
         }
         updateResult();
     }
-
 
 }
