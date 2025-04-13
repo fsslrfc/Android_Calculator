@@ -1,6 +1,5 @@
 package com.example.myapplication3;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -157,8 +156,7 @@ public class SecondActivity extends AppCompatActivity {
         viewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SecondActivity.this, FirstActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

@@ -46,13 +46,11 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.MyHold
 
     public void setOnClickListener(OnItemClickListener listener) {
         this.Listener = listener;
-
     }
 
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
-
 
     public class MyHolder extends RecyclerView.ViewHolder {
         private TextView viewCount;
@@ -72,15 +70,6 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.MyHold
             viewNum2 = itemView.findViewById(R.id.item_num2);
             viewRes = itemView.findViewById(R.id.item_res);
             buttonDel = itemView.findViewById(R.id.item_del);
-
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (Listener != null) {
-//                        Listener.onItemClick(position);
-//                    }
-//                }
-//            });
 
             buttonDel.setOnClickListener(new View.OnClickListener() {
                 @Override

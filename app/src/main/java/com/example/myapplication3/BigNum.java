@@ -283,7 +283,7 @@ public class BigNum {
     }
 
     public boolean is_equal(BigNum b) {
-        if (this.flag == b.flag && this.ZS == b.ZS && this.XS == b.XS) {
+        if (this.flag == b.flag && this.ZS.toString().equals(b.ZS.toString()) && this.XS.toString().equals(b.XS.toString())) {
             return true;
         }
         else {
@@ -726,11 +726,25 @@ public class BigNum {
         return res;
     }
 
-    public BigNum div(BigNum b){
-        return this;
+    public BigNum div(BigNum b) {
+        if (this.is_abs_smaller(b)) {
+            return new BigNum("+0.");
+        }
+        else {
+            BigNum res = new BigNum("+0.");
+            BigNum temp = new BigNum(this);
+            boolean flag_temp = true;
+            if (this.flag != b.flag) {
+                flag_temp = false;
+            }
+            temp.flag = true;
+            b.flag = true;
+            while (!temp.is_abs_smaller(b)) {
+                temp = temp.sub(b);
+                res = res.add(new BigNum("+1."));
+            }
+            res.flag = flag_temp;
+            return res;
+        }
     }
-
-
 }
-
-
